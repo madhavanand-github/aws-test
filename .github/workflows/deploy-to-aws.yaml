@@ -1,17 +1,17 @@
-name: "Deploy to AWS" # Name of action.
+name: Deploy
 
-on: # when to run action named, Deploy.
+on:
   push:
     branches:
-      - main # when commit happens to this branch.
+      - master 
 
 jobs:
-  deploy: # Name of Job/Task, can have any number of jobs/tasks.
-    runs-on: ubuntu-latest # this is github's own machine, like our local machine.
+  deploy:
+    runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code # To clone the code. 
-      uses: actions/checkout@v2 
+    - name: Checkout code
+      uses: actions/checkout@v2
 
     - name: SSH and deploy
       env:
@@ -19,4 +19,6 @@ jobs:
       run: |
         echo "$SSH_PRIVATE_KEY" > keyfile
         chmod 600 keyfile
+        mkdir -p ~/.ssh
+        cp known_hosts ~/.ssh/known_hosts
         ssh -t -i keyfile ubuntu@ec2-13-48-5-59.eu-north-1.compute.amazonaws.com "source ~/deploy.sh"
