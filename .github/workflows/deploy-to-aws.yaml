@@ -6,7 +6,6 @@ on: # when to run action named, Deploy.
       - main # when commit happens to this branch.
 
 jobs:
-	
   deploy: # Name of Job/Task, can have any number of jobs/tasks.
     runs-on: ubuntu-latest # this is github's own machine, like our local machine.
 
